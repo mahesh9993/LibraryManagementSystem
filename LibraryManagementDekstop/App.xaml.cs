@@ -1,14 +1,14 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using LibraryApp;
 using System.Windows;
+using LibraryApp.Screens;
 
-namespace LibraryManagementDekstop
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    protected override void OnStartup(StartupEventArgs e)
     {
-    }
+        base.OnStartup(e);
 
+        LoginWindow loginWindow = new LoginWindow();
+        loginWindow.Show();
+    }
 }
