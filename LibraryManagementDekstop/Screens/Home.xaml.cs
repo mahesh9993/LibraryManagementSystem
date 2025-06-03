@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LibraryManagementDekstop.Screens;
+using LibraryManagementDesktop.Screens;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,31 +21,39 @@ namespace DesktopApplication.Screens
             {
                 new Book { Id = 1, BookName = "Madol Duuwa", Author = "Martin Wickramasinghe", Quantity = 6, StatusColor = Colors.Red },
                 new Book { Id = 2, BookName = "Grade 10 Maths", Author = "Master Guide", Quantity = 5, StatusColor = Colors.LimeGreen },
-                new Book { Id = 3, BookName = "Tamil Language", Author = "Master Guide", Quantity = 2, StatusColor = Colors.Blue }
+                new Book { Id = 3, BookName = "Tamil Language", Author = "Master Guide", Quantity = 2, StatusColor = Colors.LimeGreen }
             };
 
             BookGrid.ItemsSource = books;
         }
 
-        // Navigation button handlers
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add User Clicked");
+            UserRegistration userRegistration = new UserRegistration();
+            userRegistration.Show();
         }
 
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add Books Clicked");
+            BookRegistration bookRegistration = new BookRegistration();
+            bookRegistration.Show();
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            ReturnProcess returnProcess = new ReturnProcess();
+            returnProcess.Show();
         }
 
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Reservation Clicked");
+            ReservationProcess reservationProcess = new ReservationProcess();
+            reservationProcess.Show();
         }
-
         private void LoanProcess_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Loan Process Clicked");
+            LoanProcess loanProcess = new LoanProcess();
+            loanProcess.Show();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
@@ -55,6 +65,7 @@ namespace DesktopApplication.Screens
         {
             MessageBox.Show($"Searching: {SearchBox.Text}");
         }
+
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (SearchBox.Text == "Search books")
@@ -72,7 +83,6 @@ namespace DesktopApplication.Screens
                 SearchBox.Foreground = Brushes.Gray;
             }
         }
-
     }
 
     public class Book

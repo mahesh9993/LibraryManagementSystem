@@ -1,0 +1,26 @@
+﻿<Window x:Class="LibraryManagementDekstop.Screens.LoanProcess"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Loan Process" Height="400" Width="400"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="20">
+
+        <TextBlock Text="Borrower ID:" FontWeight="Bold"/>
+        <TextBox x:Name="BorrowerIdTextBox" Height="30" Margin="0,5,0,10"/>
+
+        <Button Content="Check Borrower" Click="CheckBorrower_Click" Width="150" Margin="0,0,0,10"/>
+        <TextBlock x:Name="BorrowerStatusTextBlock" Foreground="DarkGreen" Margin="0,0,0,20"/>
+
+        <TextBlock Text="Copy ID:" FontWeight="Bold"/>
+        <TextBox x:Name="CopyIdTextBox" Height="30" Margin="0,5,0,10"/>
+
+        <Button Content="Check Copy" Click="CheckCopy_Click" Width="150" Margin="0,0,0,10"/>
+        <TextBlock x:Name="CopyStatusTextBlock" Foreground="DarkRed" Margin="0,0,0,20"/>
+
+        <Button x:Name="ConfirmLoanButton" Content="Confirm Loan" Click="ConfirmLoanButton_Click" IsEnabled="False" Width="150" Margin="0,0,0,10"/>
+        <TextBlock x:Name="ReturnDateTextBlock" FontWeight="Bold" Margin="0,10,0,20"/>
+
+        <Button Content="Cancel" Click="CancelLoanButton_Click" Width="100"/>
+    </StackPanel>
+</Window>
