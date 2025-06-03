@@ -1,3 +1,4 @@
+using LibraryManagementAPI.Infrastructure.Dapper;
 using LibraryManagementAPI.Infrastructure.Services;
 using LibraryManagementAPI.Services;
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<IConnectionFactory, SqlConnectionFactory>();
 builder.Services.AddScoped<IBorrowerService, BorrowerService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookRegistrationRepository, BookRegistrationRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
