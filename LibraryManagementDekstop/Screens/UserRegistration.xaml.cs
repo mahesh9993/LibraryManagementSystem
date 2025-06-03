@@ -1,27 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace DesktopApplication.Screens
+namespace LibraryManagementDekstop.Screens
 {
-    /// <summary>
-    /// Interaction logic for UserRegistration.xaml
-    /// </summary>
     public partial class UserRegistration : Window
     {
         public UserRegistration()
         {
             InitializeComponent();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            string userNumber = UserNumberTextBox.Text.Trim();
+            string name = NameTextBox.Text.Trim();
+            string nic = NICTextBox.Text.Trim();
+            string address = AddressTextBox.Text.Trim();
+            string sex = MaleRadioButton.IsChecked == true ? "Male" :
+                         FemaleRadioButton.IsChecked == true ? "Female" : "Not specified";
+
+            var selectedType = RegistrationTypeComboBox.SelectedItem as ComboBoxItem;
+            string registrationType = selectedType?.Content.ToString() ?? "Not selected";
+
+            if (string.IsNullOrWhiteSpace(userNumber) ||
+                string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(nic) ||
+                string.IsNullOrWhiteSpace(address) ||
+                registrationType == "Not selected")
+            {
+                MessageBox.Show("Please fill all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            MessageBox.Show("User registered successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
