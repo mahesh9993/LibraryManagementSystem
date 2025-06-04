@@ -34,7 +34,7 @@ namespace LibraryManagementAPI.Infrastructure.Services
         public async Task<CommonResponse> GetAllBooks()
         {
             using var conn = connectionFactory.CreateConnection();
-            var result = await conn.QueryAsync<Book>("GetAllBorrowers", commandType: CommandType.StoredProcedure);
+            var result = await conn.QueryAsync<Book>("GetAllBooks", commandType: CommandType.StoredProcedure);
             
             if(result.Any())
             {
