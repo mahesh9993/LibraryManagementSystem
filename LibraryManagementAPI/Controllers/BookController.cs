@@ -25,11 +25,27 @@ namespace LibraryManagementAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("UpdateBook")]
+        public async Task<IActionResult> UpdateBook(BookDetailModel book)
+        {
+            var result = await bookService.UpdateBook(book);
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("GetAllBooks")]
         public async Task<IActionResult> GetAllBooks()
         {
             var students = await bookService.GetAllBooks();
+            return Ok(students);
+        }
+
+        [HttpGet]
+        [Route("GetAllBookCategories")]
+        public async Task<IActionResult> GetAllBookCategories()
+        {
+            var students = await bookService.GetAllBookCategories();
             return Ok(students);
         }
     }
