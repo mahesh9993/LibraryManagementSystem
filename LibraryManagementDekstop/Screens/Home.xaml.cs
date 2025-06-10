@@ -1,5 +1,7 @@
-﻿using LibraryManagementDekstop.Screens;
-using LibraryManagementDesktop.Screens;
+﻿using LibraryManagementDekstop.Interfaces;
+using LibraryManagementDekstop.Screens;
+using LibraryManagementDekstop.Services;
+using LibraryManagementDesktop.Services;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,10 +11,15 @@ namespace DesktopApplication.Screens
 {
     public partial class Home : Window
     {
-        public Home()
+        private readonly UserRegistration userRegistration;
+        private readonly BookRegistration bookRegistration;
+
+        public Home(UserRegistration userRegistration)
         {
             InitializeComponent();
             LoadBooks();
+
+            this.userRegistration = userRegistration;
         }
 
         private void LoadBooks()
@@ -29,13 +36,16 @@ namespace DesktopApplication.Screens
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            UserRegistration userRegistration = new UserRegistration();
+            //UserRegistration userRegistration = new UserRegistration(userService);
+            //userRegistration.Show();
+
+            //var userRegistration = service.GetUserDetails<>
             userRegistration.Show();
         }
 
+
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
-            BookRegistration bookRegistration = new BookRegistration();
             bookRegistration.Show();
         }
 

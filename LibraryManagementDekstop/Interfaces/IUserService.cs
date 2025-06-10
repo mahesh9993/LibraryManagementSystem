@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementDekstop.Interfaces
 {
-    internal interface IUserService
+    public interface IUserService
     {
         Task<bool> SaveUserDetails(UserSaveModel userSaveModel);
+        Task<bool> GetUserDetails(UserSaveModel userSaveModel);
     }
 }
+

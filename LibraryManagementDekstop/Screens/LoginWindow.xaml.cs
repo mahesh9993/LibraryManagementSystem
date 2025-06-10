@@ -5,10 +5,12 @@ namespace LibraryApp.Screens
 {
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        private readonly Home home;
+        public LoginWindow(Home home)
         {
             InitializeComponent();
             txtUsername.Text = "admin";
+            this.home = home;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -25,7 +27,6 @@ namespace LibraryApp.Screens
 
             if (username == "admin" && password == "1234")
             {
-                Home home = new Home();
                 home.Show();
                 this.Close();
             }
