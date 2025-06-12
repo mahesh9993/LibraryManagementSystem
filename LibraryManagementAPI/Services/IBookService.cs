@@ -8,5 +8,7 @@ namespace LibraryManagementAPI.Services
     {
         Task<CommonResponse> RegisterBook(Book book);
         Task<CommonResponse> GetAllBooks();
+        Task<CommonResponse> GetAllBookCategories();
+        Task<CommonResponse> UpdateBook(BookDetailModel book);
     }
 }
