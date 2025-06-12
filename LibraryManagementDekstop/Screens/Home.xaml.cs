@@ -11,15 +11,10 @@ namespace DesktopApplication.Screens
 {
     public partial class Home : Window
     {
-        private readonly UserRegistration userRegistration;
-        private readonly BookRegistration bookRegistration;
-
-        public Home(UserRegistration userRegistration)
+        public Home()
         {
             InitializeComponent();
             LoadBooks();
-
-            this.userRegistration = userRegistration;
         }
 
         private void LoadBooks()
@@ -36,16 +31,13 @@ namespace DesktopApplication.Screens
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            //UserRegistration userRegistration = new UserRegistration(userService);
-            //userRegistration.Show();
-
-            //var userRegistration = service.GetUserDetails<>
+            UserRegistration userRegistration = new UserRegistration();
             userRegistration.Show();
         }
 
-
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
+            BookRegistration bookRegistration = new BookRegistration();
             bookRegistration.Show();
         }
 
