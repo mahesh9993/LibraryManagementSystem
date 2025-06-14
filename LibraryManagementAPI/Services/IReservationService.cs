@@ -1,10 +1,11 @@
-﻿using LibraryManagementAPI.Models;
+﻿using LibraryManagementAPI.Common;
+using LibraryManagementAPI.Models;
 
 namespace LibraryManagementAPI.Services
 {
     public interface IReservationService
     {
-        Task<bool> ReserveBooks(string userNumber, string bookNumber, int CreatedBy);
-        Task<ReserveDetailOutputModel?> GetReserveBooks(string? userNumber, string? bookNumber);
+        Task<CommonResponse> ReserveBooks(string userNumber, string bookNumber, int CreatedBy);
+        Task<CommonResponse> GetReserveBooks(string userNumber, string bookNumber);
     }
 }
