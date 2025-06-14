@@ -15,9 +15,9 @@ namespace LibraryManagementAPI.Controllers
         }
 
         [HttpPost("ReserveBooks")]
-        public async Task<IActionResult> ReserveBooks(string userNumber, string bookNumber,int CreatedBy)
+        public async Task<IActionResult> ReserveBooks(string userNumber, string bookNumber, int CreatedBy)
         {
-            var success = await reserveService.ReserveBooks(userNumber, bookNumber,CreatedBy);
+            var success = await reserveService.ReserveBooks(userNumber, bookNumber, CreatedBy);
             return Ok(success);
         }
 

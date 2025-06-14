@@ -76,7 +76,6 @@ namespace LibraryManagementAPI.Infrastructure.Dapper
             DynamicParameters dynamicParameters = new DynamicParameters();
 
             dynamicParameters.Add("BookID", "0", DbType.Int32, ParameterDirection.InputOutput);
-            dynamicParameters.Add("BookNumber", item.BookCategoryID, DbType.Int32, ParameterDirection.Input);
             dynamicParameters.Add("BookCategoryID", item.BookCategoryID, DbType.Int32, ParameterDirection.Input);
             dynamicParameters.Add("ISBN", item.ISBN, DbType.String, ParameterDirection.Input);
             dynamicParameters.Add("BookCategoryID", item.BookCategoryID, DbType.Int32, ParameterDirection.Input);
@@ -93,7 +92,6 @@ namespace LibraryManagementAPI.Infrastructure.Dapper
 
             dynamicParameters.Add("BookCopyID", "0", DbType.Int32, ParameterDirection.InputOutput);
             dynamicParameters.Add("BookID", bookID, DbType.Int32, ParameterDirection.Input);
-            dynamicParameters.Add("BookCopyNumber", "5", DbType.Int32, ParameterDirection.Input);
             dynamicParameters.Add("CreatedBy", item.CreatedBy, DbType.Int32, ParameterDirection.Input);
 
             return dynamicParameters;
