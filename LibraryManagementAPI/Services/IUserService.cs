@@ -1,11 +1,12 @@
-﻿using LibraryManagementAPI.Models;
+﻿using LibraryManagementAPI.Common;
+using LibraryManagementAPI.Models;
 using System.Threading.Tasks;
 
 namespace LibraryManagementAPI.Services
 {
     public interface IUserService
     {
-        Task<bool> SaveUserDetails(UserDetailInputModel userDetailInput);
-        Task<UserDetailOutputModel?> GetUserDetail(string userNumber);
+        Task<CommonResponse> SaveUserDetails(UserDetailInputModel userDetailInput);
+        Task<CommonResponse> GetUserDetail(string userNumber);
     }
 }
