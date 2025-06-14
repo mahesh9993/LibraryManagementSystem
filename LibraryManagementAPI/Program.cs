@@ -11,7 +11,7 @@ builder.Services.AddScoped<IConnectionFactory, SqlConnectionFactory>();
 builder.Services.AddScoped<IBorrowerService, BorrowerService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookRegistrationRepository, BookRegistrationRepository>();
-
+builder.Services.AddScoped<IBookUpdateRepository, BookUpdateRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReservationService, ReservationBookService>();
 

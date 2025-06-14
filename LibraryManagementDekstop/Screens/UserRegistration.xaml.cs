@@ -1,5 +1,7 @@
 ﻿using LibraryManagementDekstop.Interfaces;
 using LibraryManagementDekstop.Models;
+using Newtonsoft.Json;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,12 +9,15 @@ namespace LibraryManagementDekstop.Screens
 {
     public partial class UserRegistration : Window
     {
-        private readonly IUserService userService;
-
-        public UserRegistration(IUserService userService, object userService1)
+        HttpClient client = new HttpClient();
+        public UserRegistration()
         {
+            client.BaseAddress = new Uri("https://localhost:7034/api/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
             InitializeComponent();
-            this.userService = userService;
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
@@ -31,7 +36,7 @@ namespace LibraryManagementDekstop.Screens
                 string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(nic) ||
                 string.IsNullOrWhiteSpace(address) ||
-                string.IsNullOrWhiteSpace(gender) ||
+                gender == "Not specified" ||
                 registrationType == "Not selected")
             {
                 MessageBox.Show("Please fill all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -49,16 +54,27 @@ namespace LibraryManagementDekstop.Screens
                 UserType = registrationType
             };
 
-            var response = await userService.SaveUserDetails(saveModel);
+            try
+            {
+                var jsonContent = JsonConvert.SerializeObject(saveModel);
+                var httpContent = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
-            if (response)
-            {
-                MessageBox.Show("User registered successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                var response = await client.PostAsync("saveUser", httpContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("User registered successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Registration failed: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to register user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -6,11 +6,9 @@ namespace DesktopApplication.Screens
 {
     public partial class BookRegistration : Window
     {
-        private readonly Home home;
-        public BookRegistration(Home home)
+        public BookRegistration()
         {
             InitializeComponent();
-            this.home = home;
         }
 
         private void SubmitISBN_Click(object sender, RoutedEventArgs e)
@@ -54,7 +52,7 @@ namespace DesktopApplication.Screens
             }
 
             MessageBox.Show($"Book Registered!\n\nISBN: {isbn}\nTitle: {title}\nAuthor: {author}\nPublisher: {publisher}\nCategory: {category}\nCopies: {copies}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            Home home = new Home();
             home.Show();
             this.Close();
         }
