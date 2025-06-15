@@ -1,10 +1,12 @@
-﻿using LibraryManagementDekstop.Interfaces;
+﻿using DesktopApplication.Screens;
+using LibraryManagementDekstop.Interfaces;
 using LibraryManagementDekstop.Models;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 
 namespace LibraryManagementDekstop.Screens
@@ -78,6 +80,9 @@ namespace LibraryManagementDekstop.Screens
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("User registered successfully!");
+                    Home home = new();
+                    home.Show();
+                    this.Close();
                 }
                 else
                 {
@@ -92,6 +97,15 @@ namespace LibraryManagementDekstop.Screens
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            Home home = new();
+            home.Show();
+            this.Close();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Home home = new();
+            home.Show();
             this.Close();
         }
     }

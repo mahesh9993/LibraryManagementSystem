@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using DesktopApplication.Screens;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -70,6 +71,12 @@ namespace LibraryManagementDekstop.Screens
         private void CancelLoanButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Home home = new();
+            home.Show();
+            this.Close();
         }
     }
 }
