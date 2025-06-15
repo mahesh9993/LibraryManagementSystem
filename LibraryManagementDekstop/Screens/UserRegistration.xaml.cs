@@ -1,9 +1,11 @@
 ﻿using LibraryManagementDekstop.Interfaces;
 using LibraryManagementDekstop.Models;
-using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+
 
 namespace LibraryManagementDekstop.Screens
 {
@@ -23,7 +25,8 @@ namespace LibraryManagementDekstop.Screens
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
             string userNumber = UserNumberTextBox.Text.Trim();
-            string name = NameTextBox.Text.Trim();
+            string fname = FNameTextBox.Text.Trim();
+            string lname = LNameTextBox.Text.Trim();
             string nic = NICTextBox.Text.Trim();
             string address = AddressTextBox.Text.Trim();
             string gender = MaleRadioButton.IsChecked == true ? "Male" :
@@ -33,7 +36,8 @@ namespace LibraryManagementDekstop.Screens
             string registrationType = selectedType?.Content.ToString() ?? "Not selected";
 
             if (string.IsNullOrWhiteSpace(userNumber) ||
-                string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(fname) ||
+                string.IsNullOrWhiteSpace(lname) ||
                 string.IsNullOrWhiteSpace(nic) ||
                 string.IsNullOrWhiteSpace(address) ||
                 gender == "Not specified" ||
@@ -43,38 +47,46 @@ namespace LibraryManagementDekstop.Screens
                 return;
             }
 
-            var saveModel = new UserSaveModel()
-            {
-                UserNumber = userNumber,
-                UserName = name,
-                NIC = nic,
-                Gender = gender,
-                Address = address,
-                CreatedBy = 1,
-                UserType = registrationType
-            };
-
             try
             {
-                var jsonContent = JsonConvert.SerializeObject(saveModel);
-                var httpContent = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
 
-                var response = await client.PostAsync("saveUser", httpContent);
+                using var client = new HttpClient(handler);
+                client.BaseAddress = new Uri("https://localhost:7034/");
+
+                var saveModel = new UserSaveModel()
+                {
+                    UserNumber = userNumber,
+                    FirstName = fname,
+                    LastName = lname,
+                    NIC = nic,
+                    Gender = gender,
+                    Address = address,
+                    CreatedBy = 1,
+                    IsActive = true,
+                    UserType = registrationType
+                };
+
+                var json = JsonSerializer.Serialize(saveModel);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("api/User/SaveUser", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("User registered successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
+                    MessageBox.Show("User registered successfully!");
                 }
                 else
                 {
-                    var error = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Registration failed: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Failed to register user: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
 

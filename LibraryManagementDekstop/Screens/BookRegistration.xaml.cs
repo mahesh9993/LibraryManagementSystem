@@ -1,14 +1,66 @@
-﻿using System.Windows;
+﻿using LibraryManagementDekstop.Models;
+using System.Net.Http;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Text.Json;
+using System.Text;
+using System.Collections.Generic;
+using System.Net;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace DesktopApplication.Screens
 {
     public partial class BookRegistration : Window
     {
+        private List<Book> _bookCategories = new List<Book>();
+
         public BookRegistration()
         {
             InitializeComponent();
+            LoadCategories(); // Load categories when window initializes
+        }
+
+        private async void LoadCategories()
+        {
+            try
+            {
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+
+                using var client = new HttpClient(handler);
+                client.BaseAddress = new Uri("https://localhost:7034/");
+
+                var response = await client.GetAsync("api/Book/GetAllBookCategories");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<Book>>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    if (apiResponse != null && apiResponse.Data != null)
+                    {
+                        _bookCategories = apiResponse.Data;
+                        CategoryComboBox.ItemsSource = _bookCategories;
+                        CategoryComboBox.DisplayMemberPath = "BookCategoryName";
+                        CategoryComboBox.SelectedValuePath = "BookCategoryID";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to load book categories.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading categories: {ex.Message}");
+            }
         }
 
         private void SubmitISBN_Click(object sender, RoutedEventArgs e)
@@ -28,33 +80,70 @@ namespace DesktopApplication.Screens
             e.Handled = !int.TryParse(e.Text, out _);
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            string isbn = ISBNTextBox.Text.Trim();
-            string title = TitleTextBox.Text.Trim();
-            string author = AuthorTextBox.Text.Trim();
-            string publisher = PublisherTextBox.Text.Trim();
-            string copiesText = CopiesTextBox.Text.Trim();
-            string? category = (CategoryComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
-
-            if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(title) ||
-                string.IsNullOrEmpty(author) || string.IsNullOrEmpty(publisher) ||
-                string.IsNullOrEmpty(copiesText) || string.IsNullOrEmpty(category))
+            if (string.IsNullOrWhiteSpace(ISBNTextBox.Text) ||
+                string.IsNullOrWhiteSpace(TitleTextBox.Text) ||
+                string.IsNullOrWhiteSpace(AuthorTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PublisherTextBox.Text) ||
+                string.IsNullOrWhiteSpace(CopiesTextBox.Text) ||
+                CategoryComboBox.SelectedItem == null)
             {
-                MessageBox.Show("Please fill in all the fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            if (!int.TryParse(copiesText, out int copies) || copies < 1 || copies > 10)
+            if (!int.TryParse(CopiesTextBox.Text, out int copies) || copies < 1 || copies > 10)
             {
-                MessageBox.Show("Please enter a number between 1 and 10 for the number of copies.", "Invalid Copies", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please enter a valid number of copies (1-10).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            MessageBox.Show($"Book Registered!\n\nISBN: {isbn}\nTitle: {title}\nAuthor: {author}\nPublisher: {publisher}\nCategory: {category}\nCopies: {copies}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            Home home = new Home();
-            home.Show();
-            this.Close();
+            try
+            {
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+
+                using var client = new HttpClient(handler);
+                client.BaseAddress = new Uri("https://localhost:7034/");
+
+                var selectedCategory = (Book)CategoryComboBox.SelectedItem;
+                var book = new Book
+                {
+                    ISBN = ISBNTextBox.Text.Trim(),
+                    Title = TitleTextBox.Text.Trim(),
+                    Author = AuthorTextBox.Text.Trim(),
+                    Publisher = PublisherTextBox.Text.Trim(),
+                    NoofCopies = copies,
+                    BookCategoryID = selectedCategory.BookCategoryID,
+                    BookCategoryName = selectedCategory.BookCategoryName,
+                    CreatedBy = 1
+                };
+
+                var json = JsonSerializer.Serialize(book);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("api/Book/RegisterBook", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Book registered successfully!");
+                    Home home = new();
+                    home.Show();
+                    this.Close();
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Failed to register book: {response.StatusCode}\n{errorContent}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
     }
 }

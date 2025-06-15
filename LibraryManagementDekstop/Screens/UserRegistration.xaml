@@ -9,8 +9,11 @@
             <TextBlock Text="User Number:" FontWeight="Bold" />
             <TextBox x:Name="UserNumberTextBox" Height="30" Margin="0,5,0,10"/>
 
-            <TextBlock Text="Name:" FontWeight="Bold" />
-            <TextBox x:Name="NameTextBox" Height="30" Margin="0,5,0,10"/>
+            <TextBlock Text="First Name:" FontWeight="Bold" />
+            <TextBox x:Name="FNameTextBox" Height="30" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Last Name:" FontWeight="Bold" />
+            <TextBox x:Name="LNameTextBox" Height="30" Margin="0,5,0,10"/>
 
             <TextBlock Text="Sex:" FontWeight="Bold" />
             <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
