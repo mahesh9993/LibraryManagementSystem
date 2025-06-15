@@ -25,7 +25,8 @@ namespace LibraryManagementAPI.Infrastructure.Services
                 parameters.Add("CreatedBy", CreatedBy, DbType.Int32);
                 parameters.Add("Result", "0", DbType.Int32, direction: ParameterDirection.Output);
 
-                var result = await connection.QueryAsync("[dbo].[SaveReserveBookDetails]", parameters, commandType: CommandType.StoredProcedure);
+                await connection.QueryAsync("[dbo].[SaveReserveBookDetails]", parameters, commandType: CommandType.StoredProcedure);
+                var result = parameters.Get<int>("Result");
                 return new CommonResponse(StatusCode.Success, "Reserved Successfully", result);
             }
         }
