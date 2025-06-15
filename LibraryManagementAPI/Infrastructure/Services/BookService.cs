@@ -66,5 +66,27 @@ namespace LibraryManagementAPI.Infrastructure.Services
             }
             return new CommonResponse(StatusCode.Error, "No Books Found", result);
         }
+
+        public async Task<CommonResponse> UpdateBookCopyStatus(int bookCopyID)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+
+            dynamicParameters.Add("BookCopyID", bookCopyID, DbType.Int32, ParameterDirection.Input);
+            dynamicParameters.Add("Result", "0", DbType.Int32, ParameterDirection.Output);
+
+            using var conn = connectionFactory.CreateConnection();
+            await conn.QueryAsync<Book>("UpdateBookCopyStatus",
+            param: dynamicParameters,
+            commandType: CommandType.StoredProcedure);
+
+            var result = dynamicParameters.Get<int>("Result");
+
+            if (result < 0)
+            {
+                return new CommonResponse(StatusCode.Error, "Update Fail", result);
+            }
+
+            return new CommonResponse(StatusCode.Success, "Success", result);
+        }
     }
 }

@@ -64,6 +64,22 @@ namespace LibraryManagementAPI.Infrastructure.Services
             return new CommonResponse(StatusCode.Success, "Success", loanId);
         }
 
+        public async Task<CommonResponse> GetLoansByUser(int userID)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+
+            dynamicParameters.Add("UserID", userID, DbType.Int32, ParameterDirection.Input);
+
+            using var conn = connectionFactory.CreateConnection();
+            var result = await conn.QueryAsync<LoanModel>("GetLoansByUser", param: dynamicParameters, commandType: CommandType.StoredProcedure);
+
+            if (result.Any())
+            {
+                return new CommonResponse(StatusCode.Success, "Success", result);
+            }
+            return new CommonResponse(StatusCode.Error, "No loans Found", result);
+        }
+
         private static DynamicParameters MapToLoanParams(LoanModel loan)
         {
             DynamicParameters dynamicParameters = new DynamicParameters();

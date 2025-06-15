@@ -8,5 +8,6 @@ namespace LibraryManagementAPI.Services
         Task<CommonResponse> GetLoanDetailsByUser(int userID);
         Task<CommonResponse> CheckBookAvailability(int bookcopyID);
         Task<CommonResponse> SaveLoan(LoanModel loan);
+        Task<CommonResponse> GetLoansByUser(int userID);
     }
 }

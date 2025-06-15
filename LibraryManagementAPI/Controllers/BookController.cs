@@ -48,5 +48,13 @@ namespace LibraryManagementAPI.Controllers
             var students = await bookService.GetAllBookCategories();
             return Ok(students);
         }
+
+        [HttpPost]
+        [Route("UpdateBookCopyStatus")]
+        public async Task<IActionResult> UpdateBookCopyStatus(int bookCopyID)
+        {
+            var result = await bookService.UpdateBookCopyStatus(bookCopyID);
+            return Ok(result);
+        }
     }
 }
