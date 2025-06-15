@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using LibraryManagementAPI.Models;
+using ApplicationCore.Models;
 using LibraryManagementAPI.Services;
 using System.Data;
 

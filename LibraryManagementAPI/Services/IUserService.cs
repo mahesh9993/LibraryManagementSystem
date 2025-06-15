@@ -1,5 +1,5 @@
-﻿using LibraryManagementAPI.Common;
-using LibraryManagementAPI.Models;
+﻿using ApplicationCore.Common;
+using ApplicationCore.Models;
 using System.Threading.Tasks;
 
 namespace LibraryManagementAPI.Services

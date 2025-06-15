@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementDekstop.Models
+﻿namespace ApplicationCore.Models
 {
     public class UserResponse
     {

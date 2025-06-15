@@ -1,5 +1,5 @@
 ﻿using LibraryManagementDekstop.Interfaces;
-using LibraryManagementDekstop.Models;
+using ApplicationCore.Models;
 using LibraryManagementDekstop.Screens;
 using LibraryManagementDekstop.Services;
 using LibraryManagementDesktop.Services;

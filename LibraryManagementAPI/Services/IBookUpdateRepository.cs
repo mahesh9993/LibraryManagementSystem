@@ -1,4 +1,4 @@
-﻿using LibraryManagementAPI.Models;
+﻿using ApplicationCore.Models;
 
 namespace LibraryManagementAPI.Services
 {

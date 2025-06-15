@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Dapper;
-using LibraryManagementAPI.Models;
+using ApplicationCore.Models;
 using LibraryManagementAPI.Services;
 
 namespace LibraryManagementAPI.Infrastructure.Services

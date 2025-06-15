@@ -1,5 +1,5 @@
-﻿using LibraryManagementAPI.Infrastructure.Services;
-using LibraryManagementAPI.Models;
+﻿using ApplicationCore.Models;
+using LibraryManagementAPI.Infrastructure.Services;
 using LibraryManagementAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

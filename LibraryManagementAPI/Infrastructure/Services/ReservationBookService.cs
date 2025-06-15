@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using LibraryManagementAPI.Common;
-using LibraryManagementAPI.Models;
+using ApplicationCore.Common;
+using ApplicationCore.Models;
 using LibraryManagementAPI.Services;
 using System.Data;
 

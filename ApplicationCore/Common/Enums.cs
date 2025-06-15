@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementAPI.Common
+﻿namespace ApplicationCore.Common
 {
     public enum StatusCode
     {

@@ -1,5 +1,5 @@
 ﻿using LibraryManagementDekstop.Interfaces;
-using LibraryManagementDekstop.Models;
+using ApplicationCore.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Windows;

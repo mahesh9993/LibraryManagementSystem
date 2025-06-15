@@ -1,5 +1,5 @@
-﻿using LibraryManagementAPI.Common;
-using LibraryManagementAPI.Models;
+﻿using ApplicationCore.Common;
+using ApplicationCore.Models;
 
 namespace LibraryManagementAPI.Services
 {

@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementAPI.Models
+﻿namespace ApplicationCore.Models
 {
     public class UserDetailInputModel
     {

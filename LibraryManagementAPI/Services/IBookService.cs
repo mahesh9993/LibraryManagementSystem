@@ -1,5 +1,5 @@
-﻿using LibraryManagementAPI.Common;
-using LibraryManagementAPI.Models;
+﻿using ApplicationCore.Common;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementAPI.Services

@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagementDekstop.Models
+namespace ApplicationCore.Models
 {
-    public class BookReturnModel
+    public class BookReserveModel
     {
         public string UserCode { get; set; }
         public string BookCode { get; set; }
-        public string BookTitle { get; set; }
-        public DateTime BorrowDate { get; set; }
-        public DateTime DueDate { get; set; }
 
     }
 }
