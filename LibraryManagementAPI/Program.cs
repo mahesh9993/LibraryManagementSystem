@@ -14,6 +14,7 @@ builder.Services.AddScoped<IBookRegistrationRepository, BookRegistrationReposito
 builder.Services.AddScoped<IBookUpdateRepository, BookUpdateRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReservationService, ReservationBookService>();
+builder.Services.AddScoped<ILoanService, LoanService>();
 
 
 builder.Services.AddControllers();
