@@ -50,17 +50,11 @@ namespace LibraryManagementDekstop.Screens
                 CopyStatusTextBlock.Text = "This is a reference-only copy. Not borrowable.";
                 ConfirmLoanButton.IsEnabled = false;
             }
-            else if (copyId == "BOR123" && borrowedBooksCount < 5 && !hasOverdue)
-            {
-                isCopyBorrowable = true;
-                CopyStatusTextBlock.Text = "This copy is available for borrowing.";
-                ConfirmLoanButton.IsEnabled = true;
-            }
             else
             {
-                isCopyBorrowable = false;
-                CopyStatusTextBlock.Text = "This copy cannot be borrowed or borrower is restricted.";
-                ConfirmLoanButton.IsEnabled = false;
+                isCopyBorrowable = true;
+                CopyStatusTextBlock.Text = "Available to Borrow.";
+                ConfirmLoanButton.IsEnabled = true;
             }
         }
 

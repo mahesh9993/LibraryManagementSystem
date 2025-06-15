@@ -22,12 +22,7 @@
                 <TextBox x:Name="PublisherTextBox" Height="30"/>
 
                 <TextBlock Text="Category:" FontWeight="Bold" Margin="0,10,0,5"/>
-                <ComboBox x:Name="CategoryComboBox" Height="30">
-                    <ComboBoxItem Content="Fiction"/>
-                    <ComboBoxItem Content="Science"/>
-                    <ComboBoxItem Content="History"/>
-                    <ComboBoxItem Content="Technology"/>
-                </ComboBox>
+                <ComboBox x:Name="CategoryComboBox" Height="30"/>
 
                 <TextBlock Text="Number of Books:" FontWeight="Bold" Margin="0,10,0,5"/>
                 <TextBox x:Name="CopiesTextBox" Height="30" PreviewTextInput="CopiesTextBox_PreviewTextInput"/>
