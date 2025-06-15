@@ -6,8 +6,8 @@
         <StackPanel>
             <TextBlock Text="Reserve a Book" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
 
-            <TextBlock Text="Borrower ID:"/>
-            <TextBox x:Name="BorrowerIdTextBox" Margin="0,0,0,10"/>
+            <TextBlock Text="User Number :"/>
+            <TextBox x:Name="UserNumberTextBox" Margin="0,0,0,10"/>
 
             <TextBlock Text="Book ID:"/>
             <TextBox x:Name="BookIdTextBox" Margin="0,0,0,10"/>
