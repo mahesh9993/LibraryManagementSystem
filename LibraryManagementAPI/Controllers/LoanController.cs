@@ -39,5 +39,13 @@ namespace LibraryManagementAPI.Controllers
             var result = await loanService.SaveLoan(loan);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("GetLoansByUser")]
+        public async Task<IActionResult> GetLoansByUser(int userID)
+        {
+            var result = await loanService.GetLoansByUser(userID);
+            return Ok(result);
+        }
     }
 }

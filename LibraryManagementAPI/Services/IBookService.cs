@@ -10,5 +10,6 @@ namespace LibraryManagementAPI.Services
         Task<CommonResponse> GetAllBooks();
         Task<CommonResponse> GetAllBookCategories();
         Task<CommonResponse> UpdateBook(BookDetailModel book);
+        Task<CommonResponse> UpdateBookCopyStatus(int bookCopyID);
     }
 }
