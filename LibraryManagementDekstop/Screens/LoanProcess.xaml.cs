@@ -1,8 +1,15 @@
 ﻿using DesktopApplication.Screens;
+using LibraryManagementDekstop.Models;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace LibraryManagementDekstop.Screens
 {
@@ -17,24 +24,57 @@ namespace LibraryManagementDekstop.Screens
         private bool hasOverdue = false;
         private bool isCopyBorrowable = false;
 
-        private void CheckBorrower_Click(object sender, RoutedEventArgs e)
+        private async void CheckBorrower_Click(object sender, RoutedEventArgs e)
         {
-            string borrowerId = BorrowerIdTextBox.Text.Trim();
-            if (borrowerId == "123")
+            try
             {
-                borrowedBooksCount = 3;
-                hasOverdue = false;
-                BorrowerStatusTextBlock.Text = $"Borrower is eligible. Currently borrowed: {borrowedBooksCount}/5";
+                string borrowerId = BorrowerIdTextBox.Text.Trim();
+
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+                using var client = new HttpClient(handler);
+                client.BaseAddress = new Uri("https://localhost:7034/");
+
+                var response = await client.GetAsync($"api/Loan/GetLoanDetailsByUser?userID={borrowerId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<LoanDetailModel>>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    if (apiResponse != null && apiResponse.Data != null)
+                    {
+                        borrowedBooksCount = apiResponse.Data[0].LoanCount;
+                        hasOverdue = apiResponse.Data[0].HasOverdue;
+                        if (hasOverdue)
+                        {
+                            BorrowerStatusTextBlock.Text = "Borrower has overdue books. Cannot borrow more.";
+                        }
+                        else
+                        {
+                            BorrowerStatusTextBlock.Text = borrowedBooksCount < 5 ? $"Borrower is eligible. Currently borrowed: {borrowedBooksCount}/5" : $"Borrower is not eligible. Currently borrowed: {borrowedBooksCount}/5";
+                        }
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to get loan details");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to load loans");
+                }
             }
-            else if (borrowerId == "999")
+            catch (Exception ex)
             {
-                borrowedBooksCount = 6;
-                hasOverdue = true;
-                BorrowerStatusTextBlock.Text = $"Borrower has overdue books. Cannot borrow more.";
-            }
-            else
-            {
-                BorrowerStatusTextBlock.Text = $"Borrower not found.";
+                MessageBox.Show($"Error: {ex.Message}");
             }
 
             ConfirmLoanButton.IsEnabled = false;
@@ -42,27 +82,103 @@ namespace LibraryManagementDekstop.Screens
             CopyStatusTextBlock.Text = "";
         }
 
-        private void CheckCopy_Click(object sender, RoutedEventArgs e)
+        private async void CheckCopy_Click(object sender, RoutedEventArgs e)
         {
-            string copyId = CopyIdTextBox.Text.Trim();
-            if (copyId == "REF001")
+            
+            try
             {
-                isCopyBorrowable = false;
-                CopyStatusTextBlock.Text = "This is a reference-only copy. Not borrowable.";
-                ConfirmLoanButton.IsEnabled = false;
+                string copyId = CopyIdTextBox.Text.Trim();
+
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+                using var client = new HttpClient(handler);
+                client.BaseAddress = new Uri("https://localhost:7034/");
+
+                var response = await client.GetAsync($"api/Loan/CheckBookAvailability?bookCopyID={copyId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<BookAvailabilityOutputModel>>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    if (apiResponse != null && apiResponse.Data != null)
+                    {
+                        isCopyBorrowable = !apiResponse.Data[0].IsReference;
+                        CopyStatusTextBlock.Text = apiResponse.Data[0].IsReference ? "This is a reference-only copy. Not borrowable." : "Available to Borrow.";
+                        ConfirmLoanButton.IsEnabled = isCopyBorrowable;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to get loan details");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to load loans");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                isCopyBorrowable = true;
-                CopyStatusTextBlock.Text = "Available to Borrow.";
-                ConfirmLoanButton.IsEnabled = true;
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
 
-        private void ConfirmLoanButton_Click(object sender, RoutedEventArgs e)
+        private async void ConfirmLoanButton_Click(object sender, RoutedEventArgs e)
         {
             if (isCopyBorrowable)
             {
+                string borrowerId = BorrowerIdTextBox.Text.Trim();
+                string copyId = CopyIdTextBox.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(BorrowerIdTextBox.Text) || string.IsNullOrWhiteSpace(CopyIdTextBox.Text))
+                {
+                    MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                try
+                {
+                    var handler = new HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                    };
+
+                    using var client = new HttpClient(handler);
+                    client.BaseAddress = new Uri("https://localhost:7034/");
+
+                    var saveModel = new LoanModel()
+                    {
+                        UserID = int.Parse(borrowerId),
+                        BookCopyID = int.Parse(copyId),
+                        ReturnDate = DateTime.Today.AddDays(14),
+                        CreatedBy = 1,
+                    };
+
+                    var json = JsonSerializer.Serialize(saveModel);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync("api/Loan/SaveLoan", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Loan Saved Successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Failed to save loan: {response.StatusCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+
                 DateTime returnDate = DateTime.Today.AddDays(14);
                 ReturnDateTextBlock.Text = $"Loan confirmed! Return date: {returnDate:dd MMM yyyy}";
                 ReturnDateTextBlock.Foreground = Brushes.DarkBlue;

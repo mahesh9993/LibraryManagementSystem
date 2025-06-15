@@ -6,6 +6,7 @@ namespace LibraryManagementAPI.Services
     public interface IReservationService
     {
         Task<CommonResponse> ReserveBooks(ReservationDetailInputModel reservationDetailInputModel);
-        Task<CommonResponse> GetReserveBooks(ReservationDetailInputModel reservationDetailInput);
+        Task<CommonResponse> GetReserveBooks();
+        Task<CommonResponse> UpdateReservationDetail(UpdateReserveModel inputModel);
     }
 }

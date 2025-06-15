@@ -19,16 +19,24 @@ namespace LibraryManagementAPI.Infrastructure.Services
 
         public async Task<CommonResponse> CheckBookAvailability(int bookcopyID)
         {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+
+            dynamicParameters.Add("BookCopyID", bookcopyID, DbType.Int32, ParameterDirection.Input);
+
             using var conn = connectionFactory.CreateConnection();
-            var result = await conn.QueryAsync<BookAvailabilityOutputModel>("CheckBookAvailability", commandType: CommandType.StoredProcedure);
+            var result = await conn.QueryAsync<BookAvailabilityOutputModel>("CheckBookAvailability",param:dynamicParameters, commandType: CommandType.StoredProcedure);
 
             return new CommonResponse(StatusCode.Success, "Success", result);
         }
 
         public async Task<CommonResponse> GetLoanDetailsByUser(int userID)
         {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+
+            dynamicParameters.Add("UserID", userID, DbType.Int32, ParameterDirection.Input);
+
             using var conn = connectionFactory.CreateConnection();
-            var result = await conn.QueryAsync<LoanModel>("GetLoanDetailsByUser", commandType: CommandType.StoredProcedure);
+            var result = await conn.QueryAsync<LoanDetailModel>("GetLoanDetailsByUser", param: dynamicParameters, commandType: CommandType.StoredProcedure);
 
             if (result.Any())
             {
@@ -54,6 +62,22 @@ namespace LibraryManagementAPI.Infrastructure.Services
             }
 
             return new CommonResponse(StatusCode.Success, "Success", loanId);
+        }
+
+        public async Task<CommonResponse> GetLoansByUser(int userID)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+
+            dynamicParameters.Add("UserID", userID, DbType.Int32, ParameterDirection.Input);
+
+            using var conn = connectionFactory.CreateConnection();
+            var result = await conn.QueryAsync<LoanModel>("GetLoansByUser", param: dynamicParameters, commandType: CommandType.StoredProcedure);
+
+            if (result.Any())
+            {
+                return new CommonResponse(StatusCode.Success, "Success", result);
+            }
+            return new CommonResponse(StatusCode.Error, "No loans Found", result);
         }
 
         private static DynamicParameters MapToLoanParams(LoanModel loan)
