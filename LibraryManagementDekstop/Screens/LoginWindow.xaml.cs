@@ -1,5 +1,6 @@
 ﻿using DesktopApplication.Screens;
 using System.Windows;
+using System.Windows.Input;
 
 namespace LibraryApp.Screens
 {
@@ -8,7 +9,7 @@ namespace LibraryApp.Screens
         public LoginWindow()
         {
             InitializeComponent();
-            txtUsername.Text = "admin";
+            txtUsername.Text = "admin"; // Optional: Prefill
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -25,7 +26,7 @@ namespace LibraryApp.Screens
 
             if (username == "admin" && password == "1234")
             {
-                Home home = new Home();
+                Home home = new();
                 home.Show();
                 this.Close();
             }
@@ -33,6 +34,14 @@ namespace LibraryApp.Screens
             {
                 MessageBox.Show("Invalid username or password.",
                                 "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Login_Click(null, null);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using LibraryManagementDekstop.Models;
+﻿using DesktopApplication.Screens;
+using LibraryManagementDekstop.Models;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -168,6 +169,15 @@ namespace LibraryManagementDekstop.Screens
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+
+    }
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Home home = new();
+            home.Show();
+            this.Close();
         }
 
     }

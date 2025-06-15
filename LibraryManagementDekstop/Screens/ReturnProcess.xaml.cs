@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopApplication.Screens;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,6 +99,13 @@ namespace LibraryManagementDesktop.Services
                 totalFine += book.Fine;
             }
             txtTotalFine.Text = totalFine.ToString("C");
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Home home = new();
+            home.Show();
+            this.Close();
         }
     }
 }

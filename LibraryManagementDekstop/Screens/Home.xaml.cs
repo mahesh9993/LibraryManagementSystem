@@ -1,4 +1,5 @@
-﻿using LibraryManagementDekstop.Interfaces;
+﻿using LibraryApp.Screens;
+using LibraryManagementDekstop.Interfaces;
 using LibraryManagementDekstop.Models;
 using LibraryManagementDekstop.Screens;
 using LibraryManagementDekstop.Services;
@@ -19,19 +20,6 @@ namespace DesktopApplication.Screens
             InitializeComponent();
             LoadBooks();
         }
-
-        //private void LoadBooks()
-        //{
-        //    List<Book> books = new List<Book>
-        //    {
-        //        new Book { Id = 1, BookName = "Madol Duuwa", Author = "Martin Wickramasinghe", Quantity = 6, StatusColor = Colors.Red },
-        //        new Book { Id = 2, BookName = "Grade 10 Maths", Author = "Master Guide", Quantity = 5, StatusColor = Colors.LimeGreen },
-        //        new Book { Id = 3, BookName = "Tamil Language", Author = "Master Guide", Quantity = 2, StatusColor = Colors.LimeGreen }
-        //    };
-
-        //    BookGrid.ItemsSource = books;
-        //}
-
         private async void LoadBooks()
         {
             try
@@ -78,36 +66,44 @@ namespace DesktopApplication.Screens
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            UserRegistration userRegistration = new UserRegistration();
+            UserRegistration userRegistration = new();
             userRegistration.Show();
+            this.Close();
         }
 
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
-            BookRegistration bookRegistration = new BookRegistration();
+            BookRegistration bookRegistration = new();
             bookRegistration.Show();
+            this.Close();
         }
 
         private void Return_Click(object sender, RoutedEventArgs e)
         {
-            ReturnProcess returnProcess = new ReturnProcess();
+            ReturnProcess returnProcess = new();
             returnProcess.Show();
+            this.Close();
         }
 
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-            ReservationProcess reservationProcess = new ReservationProcess();
+            ReservationProcess reservationProcess = new();
             reservationProcess.Show();
+            this.Close();
         }
         private void LoanProcess_Click(object sender, RoutedEventArgs e)
         {
-            LoanProcess loanProcess = new LoanProcess();
+            LoanProcess loanProcess = new();
             loanProcess.Show();
+            this.Close();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            LoginWindow loginWindow = new();
+
+            loginWindow.Show();
+            this.Close();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)

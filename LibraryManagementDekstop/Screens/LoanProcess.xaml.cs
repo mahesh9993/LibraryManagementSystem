@@ -1,4 +1,5 @@
-﻿using LibraryManagementDekstop.Models;
+﻿using DesktopApplication.Screens;
+using LibraryManagementDekstop.Models;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -186,6 +187,12 @@ namespace LibraryManagementDekstop.Screens
         private void CancelLoanButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Home home = new();
+            home.Show();
+            this.Close();
         }
     }
 }
