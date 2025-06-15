@@ -170,15 +170,11 @@ namespace LibraryManagementDekstop.Screens
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
-
-    }
-        }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Home home = new();
             home.Show();
             this.Close();
         }
-
     }
 }
