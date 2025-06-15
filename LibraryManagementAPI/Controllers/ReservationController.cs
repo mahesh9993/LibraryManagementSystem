@@ -23,9 +23,16 @@ namespace LibraryManagementAPI.Controllers
         }
 
         [HttpGet("GetReserveBooks")]
-        public async Task<IActionResult> GetReserveBooks(ReservationDetailInputModel reservationDetailInput)
+        public async Task<IActionResult> GetReserveBooks()
         {
-            var success = await reserveService.GetReserveBooks(reservationDetailInput);
+            var success = await reserveService.GetReserveBooks();
+            return Ok(success);
+        }
+
+        [HttpPost("UpdateReservationDetailByBookCopyID")]
+        public async Task<IActionResult> UpdateReservationDetail(UpdateReserveModel inputModel)
+        {
+            var success = await reserveService.UpdateReservationDetail(inputModel);
             return Ok(success);
         }
     }

@@ -31,17 +31,37 @@ namespace LibraryManagementAPI.Infrastructure.Services
             }
         }
 
-        public async Task<CommonResponse> GetReserveBooks(ReservationDetailInputModel reservationDetailInput)
+        public async Task<CommonResponse> GetReserveBooks()
         {
             using var connection = connectionFactory.CreateConnection();
 
             var parameters = new DynamicParameters();
-            parameters.Add("UserNumber", reservationDetailInput.UserNumber, DbType.String);
-            parameters.Add("BookNumber", reservationDetailInput.BookNumber, DbType.String);
 
-            var result = await connection.QueryFirstOrDefaultAsync<ReserveDetailOutputModel>("[dbo].[GetReserveBookDetails]", parameters, commandType: CommandType.StoredProcedure);
+            var result = await connection.QueryAsync<ReserveDetailOutputModel>("[dbo].[GetReserveBookDetails]", parameters, commandType: CommandType.StoredProcedure);
             return new CommonResponse(StatusCode.Success, "Success", result);
 
         }
-    }
+
+        public async Task<CommonResponse> UpdateReservationDetail(UpdateReserveModel inputModel)
+        {
+            try
+            {
+
+                using var connection = connectionFactory.CreateConnection();
+                var parameters = new DynamicParameters();
+                parameters.Add("BookNumber", inputModel.BookNumber, DbType.Int32);
+                parameters.Add("Result", "0", DbType.Int32, direction: ParameterDirection.Output);
+
+                await connection.QueryAsync("[dbo].[UpdateReservationDetail]", parameters, commandType: CommandType.StoredProcedure);
+                var result = parameters.Get<int>("Result");
+                return new CommonResponse(StatusCode.Success, "Reserved Successfully", result);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+    } 
 }
