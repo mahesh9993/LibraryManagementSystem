@@ -1,4 +1,5 @@
-﻿using LibraryManagementAPI.Services;
+﻿using LibraryManagementAPI.Models;
+using LibraryManagementAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementAPI.Controllers
@@ -15,16 +16,16 @@ namespace LibraryManagementAPI.Controllers
         }
 
         [HttpPost("ReserveBooks")]
-        public async Task<IActionResult> ReserveBooks(string userNumber, string bookNumber, int CreatedBy)
+        public async Task<IActionResult> ReserveBooks(ReservationDetailInputModel reservationDetailInput)
         {
-            var success = await reserveService.ReserveBooks(userNumber, bookNumber, CreatedBy);
+            var success = await reserveService.ReserveBooks(reservationDetailInput);
             return Ok(success);
         }
 
         [HttpGet("GetReserveBooks")]
-        public async Task<IActionResult> GetReserveBooks(string? userNumber, string? bookNumber)
+        public async Task<IActionResult> GetReserveBooks(ReservationDetailInputModel reservationDetailInput)
         {
-            var success = await reserveService.GetReserveBooks(userNumber, bookNumber);
+            var success = await reserveService.GetReserveBooks(reservationDetailInput);
             return Ok(success);
         }
     }
