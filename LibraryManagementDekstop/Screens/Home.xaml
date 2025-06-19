@@ -17,7 +17,7 @@
                 <Button Content="Return" Margin="0,5" Click="Return_Click"/>
                 <Button Content="Loan process" Margin="0,5" Click="LoanProcess_Click"/>
 
-                <StackPanel VerticalAlignment="Bottom" Margin="0,400,0,0">
+                <StackPanel VerticalAlignment="Bottom" Margin="0,350,0,0">
                     <Button Content="Log Out" Click="Logout_Click"/>
                 </StackPanel>
             </StackPanel>

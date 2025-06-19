@@ -40,11 +40,19 @@ namespace LibraryManagementAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetLoansByUser")]
-        public async Task<IActionResult> GetLoansByUser(int userID)
+        public async Task<IActionResult> GetLoansByUser(LoanModel model)
         {
-            var result = await loanService.GetLoansByUser(userID);
+            var result = await loanService.GetLoansByUser(model);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("ReturnBookDelete")]
+        public async Task<IActionResult> ReturnBookDelete(LoanModel model)
+        {
+            var result = await loanService.ReturnBookDelete(model);
             return Ok(result);
         }
     }
