@@ -109,7 +109,7 @@ namespace LibraryManagementDesktop.Services
 
                 var userModel = new BookReturnModel
                 {
-                    userID = userId
+                    UserID = userId
                 };
 
                 var json = JsonSerializer.Serialize(userModel);
@@ -138,9 +138,9 @@ namespace LibraryManagementDesktop.Services
                     {
                         borrowedBooks.Add(new BorrowedBook
                         {
-                            BookCopyId = loan.bookCopyID,
-                            BorrowDate = loan.loanDate,
-                            DueDate = loan.returnDate
+                            BookCopyId = loan.BookCopyID,
+                            BorrowDate = loan.LoanDate,
+                            DueDate = loan.ReturnDate
                         });
                     }
 
@@ -177,7 +177,7 @@ namespace LibraryManagementDesktop.Services
 
                     var deleteModel = new BookReturnModel()
                     {
-                        bookCopyID = bookCopyID
+                        BookCopyID = bookCopyID
                     };
 
                     var json = JsonSerializer.Serialize(deleteModel);

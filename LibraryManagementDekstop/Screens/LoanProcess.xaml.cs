@@ -28,7 +28,7 @@ namespace LibraryManagementDekstop.Screens
         {
             try
             {
-                string borrowerId = BorrowerIdTextBox.Text.Trim();
+                string borrowerNumber = BorrowerIdTextBox.Text.Trim();
 
                 var handler = new HttpClientHandler
                 {
@@ -37,7 +37,7 @@ namespace LibraryManagementDekstop.Screens
                 using var client = new HttpClient(handler);
                 client.BaseAddress = new Uri("https://localhost:7034/");
 
-                var response = await client.GetAsync($"api/Loan/GetLoanDetailsByUser?userID={borrowerId}");
+                var response = await client.GetAsync($"api/Loan/GetLoanDetailsByUser?userNumber={borrowerNumber}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -48,7 +48,7 @@ namespace LibraryManagementDekstop.Screens
                         PropertyNameCaseInsensitive = true
                     });
 
-                    if (apiResponse != null && apiResponse.Data != null)
+                    if (apiResponse != null && apiResponse.Data.Count > 0)
                     {
                         borrowedBooksCount = apiResponse.Data[0].LoanCount;
                         hasOverdue = apiResponse.Data[0].HasOverdue;
@@ -87,7 +87,7 @@ namespace LibraryManagementDekstop.Screens
             
             try
             {
-                string copyId = CopyIdTextBox.Text.Trim();
+                string copyNumber = CopyIdTextBox.Text.Trim();
 
                 var handler = new HttpClientHandler
                 {
@@ -96,7 +96,7 @@ namespace LibraryManagementDekstop.Screens
                 using var client = new HttpClient(handler);
                 client.BaseAddress = new Uri("https://localhost:7034/");
 
-                var response = await client.GetAsync($"api/Loan/CheckBookAvailability?bookCopyID={copyId}");
+                var response = await client.GetAsync($"api/Loan/CheckBookAvailability?bookCopyNumber={copyNumber}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -107,7 +107,7 @@ namespace LibraryManagementDekstop.Screens
                         PropertyNameCaseInsensitive = true
                     });
 
-                    if (apiResponse != null && apiResponse.Data != null)
+                    if (apiResponse != null && apiResponse.Data.Count > 0)
                     {
                         isCopyBorrowable = !apiResponse.Data[0].IsReference;
                         CopyStatusTextBlock.Text = apiResponse.Data[0].IsReference ? "This is a reference-only copy. Not borrowable." : "Available to Borrow.";
@@ -133,8 +133,8 @@ namespace LibraryManagementDekstop.Screens
         {
             if (isCopyBorrowable)
             {
-                string borrowerId = BorrowerIdTextBox.Text.Trim();
-                string copyId = CopyIdTextBox.Text.Trim();
+                string borrowerNumber = BorrowerIdTextBox.Text.Trim();
+                string copyNumber = CopyIdTextBox.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(BorrowerIdTextBox.Text) || string.IsNullOrWhiteSpace(CopyIdTextBox.Text))
                 {
@@ -154,8 +154,8 @@ namespace LibraryManagementDekstop.Screens
 
                     var saveModel = new LoanModel()
                     {
-                        UserID = int.Parse(borrowerId),
-                        BookCopyID = int.Parse(copyId),
+                        UserNumber = borrowerNumber,
+                        BookCopyNumber = copyNumber,
                         ReturnDate = DateTime.Today.AddDays(14),
                         CreatedBy = 1,
                     };

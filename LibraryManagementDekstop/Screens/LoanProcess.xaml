@@ -13,13 +13,13 @@
 
         <TextBlock Text="Loan Process" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 0 0 20"/>
         
-        <TextBlock Text="Borrower ID:" FontWeight="Bold"  Width="500"/>
+        <TextBlock Text="Borrower Number:" FontWeight="Bold"  Width="500"/>
         <TextBox x:Name="BorrowerIdTextBox" Height="30" Margin="0,5,0,10" Width="500"/>
 
         <Button Content="Check Borrower" Click="CheckBorrower_Click" Width="150" Margin="0,0,0,10"/>
         <TextBlock x:Name="BorrowerStatusTextBlock" Foreground="DarkGreen" Margin="0,0,0,20"/>
 
-        <TextBlock Text="Copy ID:" FontWeight="Bold" Width="500"/>
+        <TextBlock Text="Copy Number:" FontWeight="Bold" Width="500"/>
         <TextBox x:Name="CopyIdTextBox" Height="30" Margin="0,5,0,10" Width="500"/>
 
         <Button Content="Check Copy" Click="CheckCopy_Click" Width="150" Margin="0,0,0,10"/>

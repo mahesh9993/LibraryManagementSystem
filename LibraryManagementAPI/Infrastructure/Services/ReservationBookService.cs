@@ -21,7 +21,7 @@ namespace LibraryManagementAPI.Infrastructure.Services
 
                 var parameters = new DynamicParameters();
                 parameters.Add("UserNumber", reservationDetailInput.UserNumber, DbType.String);
-                parameters.Add("BookNumber", reservationDetailInput.BookNumber, DbType.Int32);
+                parameters.Add("BookNumber", reservationDetailInput.BookNumber, DbType.String);
                 parameters.Add("CreatedBy", reservationDetailInput.CreatedBy, DbType.Int32);
                 parameters.Add("Result", "0", DbType.Int32, direction: ParameterDirection.Output);
 
