@@ -64,15 +64,14 @@ namespace LibraryManagementDekstop.Screens
         private async void ReserveBook_Click(object sender, RoutedEventArgs e)
         {
             string userNumber = UserNumberTextBox.Text.Trim();
-            string selectedTitle = BookIdTextBox.Text.Trim();
+            string bookNumber = BookIdTextBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(userNumber) || string.IsNullOrEmpty(selectedTitle))
+            if (string.IsNullOrEmpty(userNumber) || string.IsNullOrEmpty(bookNumber))
             {
                 MessageBox.Show("Please enter borrower ID and select a book title.");
                 return;
             }
 
-            ReservationStatusTextBlock.Text = $"Book '{selectedTitle}' Reserved successfully.";
             try
 
             {
@@ -89,7 +88,7 @@ namespace LibraryManagementDekstop.Screens
 
                 {
                     UserNumber = userNumber,
-                    BookNumber = selectedTitle,
+                    BookNumber = bookNumber,
                     CreatedBy = 1,
 
                 };
@@ -102,6 +101,7 @@ namespace LibraryManagementDekstop.Screens
 
                 if (response.IsSuccessStatusCode)
                 {
+                    ReservationStatusTextBlock.Text = $"Book '{bookNumber}' Reserved successfully.";
                     MessageBox.Show("User registered successfully!");
                 }
 

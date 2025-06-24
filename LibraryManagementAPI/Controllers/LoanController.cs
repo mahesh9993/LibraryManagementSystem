@@ -18,17 +18,17 @@ namespace LibraryManagementAPI.Controllers
 
         [HttpGet]
         [Route("CheckBookAvailability")]
-        public async Task<IActionResult> CheckBookAvailability(int bookCopyID)
+        public async Task<IActionResult> CheckBookAvailability(string bookCopyNumber)
         {
-            var result = await loanService.CheckBookAvailability(bookCopyID);
+            var result = await loanService.CheckBookAvailability(bookCopyNumber);
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetLoanDetailsByUser")]
-        public async Task<IActionResult> GetLoanDetailsByUser(int userID)
+        public async Task<IActionResult> GetLoanDetailsByUser(string userNumber)
         {
-            var result = await loanService.GetLoanDetailsByUser(userID);
+            var result = await loanService.GetLoanDetailsByUser(userNumber);
             return Ok(result);
         }
 
