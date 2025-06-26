@@ -9,7 +9,7 @@ namespace LibraryManagementAPI.Services
         Task<CommonResponse> GetLoanDetailsByUser(string userNumber);
         Task<CommonResponse> CheckBookAvailability(string bookCopyNumber);
         Task<CommonResponse> SaveLoan(LoanModel loan);
-        Task<CommonResponse> GetLoansByUser(LoanModel model);
-        Task<CommonResponse> ReturnBookDelete(LoanModel model);
+        Task<CommonResponse> GetLoansByUser(BookReturnModel model);
+        Task<CommonResponse> ReturnBookDelete(BookReturnModel model);
     }
 }

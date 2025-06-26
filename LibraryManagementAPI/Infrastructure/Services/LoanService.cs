@@ -66,11 +66,11 @@ namespace LibraryManagementAPI.Infrastructure.Services
             return new CommonResponse(StatusCode.Success, "Success", loanId);
         }
 
-        public async Task<CommonResponse> GetLoansByUser(LoanModel model)
+        public async Task<CommonResponse> GetLoansByUser(BookReturnModel model)
         {
             DynamicParameters dynamicParameters = new DynamicParameters();
 
-            dynamicParameters.Add("UserID", model.UserID, DbType.Int32, ParameterDirection.Input);
+            dynamicParameters.Add("UserNumber", model.UserNumber, DbType.String, ParameterDirection.Input);
 
             using var conn = connectionFactory.CreateConnection();
             var result = await conn.QueryAsync<LoanModel>("GetLoansByUser", param: dynamicParameters, commandType: CommandType.StoredProcedure);
@@ -95,13 +95,13 @@ namespace LibraryManagementAPI.Infrastructure.Services
             return dynamicParameters;
         }
 
-        public async Task<CommonResponse> ReturnBookDelete(LoanModel model)
+        public async Task<CommonResponse> ReturnBookDelete(BookReturnModel model)
         {
             try
             {
                 using var connection = connectionFactory.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("BookNumber", model.BookCopyID, DbType.Int32);
+                parameters.Add("BookCopyID", model.BookCopyID, DbType.Int32);
                 parameters.Add("Result", "0", DbType.Int32, direction: ParameterDirection.Output);
 
                 await connection.QueryAsync("[dbo].[BookReturnDelete]", parameters, commandType: CommandType.StoredProcedure);
