@@ -54,12 +54,12 @@ namespace DesktopApplication.Screens
                 }
                 else
                 {
-                    MessageBox.Show("Failed to load book categories.");
+                    MessageBox.Show(this, "Failed to load book categories.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading categories: {ex.Message}");
+                MessageBox.Show(this, $"Error loading categories: {ex.Message}");
             }
         }
 
@@ -71,7 +71,7 @@ namespace DesktopApplication.Screens
             }
             else
             {
-                MessageBox.Show("Please enter a valid ISBN.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(this, "Please enter a valid ISBN.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -89,13 +89,13 @@ namespace DesktopApplication.Screens
                 string.IsNullOrWhiteSpace(CopiesTextBox.Text) ||
                 CategoryComboBox.SelectedItem == null)
             {
-                MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(this, "Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (!int.TryParse(CopiesTextBox.Text, out int copies) || copies < 1 || copies > 10)
             {
-                MessageBox.Show("Please enter a valid number of copies (1-10).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(this, "Please enter a valid number of copies (1-10).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace DesktopApplication.Screens
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Book registered successfully!");
+                    MessageBox.Show(this, "Book registered successfully!");
                     Home home = new();
                     home.Show();
                     this.Close();
@@ -137,12 +137,12 @@ namespace DesktopApplication.Screens
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Failed to register book: {response.StatusCode}\n{errorContent}");
+                    MessageBox.Show(this, $"Failed to register book: {response.StatusCode}\n{errorContent}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show(this, $"Error: {ex.Message}");
             }
         }
 

@@ -132,7 +132,7 @@ namespace LibraryManagementDesktop.Services
 
                     if (result == null || result.data == null || result.data.Count == 0)
                     {
-                        MessageBox.Show("No books found for this user.");
+                        MessageBox.Show(this, "No books found for this user.");
                         return;
                     }
 
@@ -190,18 +190,16 @@ namespace LibraryManagementDesktop.Services
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show(this,"Book Returned successfully!");
-
-
+                        MessageBox.Show(this, "Book Returned successfully!");
                     }
                     else
                     {
-                        MessageBox.Show($"Failed to book return: {response.StatusCode}");
+                        MessageBox.Show(this, $"Failed to book return: {response.StatusCode}");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Invalid BookCopyID.");
+                    MessageBox.Show(this, "Invalid BookCopyID.");
                 }
             }
             catch (Exception ex)
