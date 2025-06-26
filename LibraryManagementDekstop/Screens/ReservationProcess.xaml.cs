@@ -151,18 +151,18 @@ namespace LibraryManagementDekstop.Screens
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Reservation updated/deleted successfully!");
+                        MessageBox.Show(this, "Reservation updated/deleted successfully!");
                         LoadReserveBooks();
 
                     }
                     else
                     {
-                        MessageBox.Show($"Failed to update reservation: {response.StatusCode}");
+                        MessageBox.Show(this, $"Failed to update reservation: {response.StatusCode}");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Invalid BookCopyID.");
+                    MessageBox.Show(this, "Invalid BookCopyID.");
                 }
             }
             catch (Exception ex)
