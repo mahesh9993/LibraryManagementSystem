@@ -16,8 +16,8 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" Margin="0 80 0 10">
-            <Label Content="User ID:" VerticalAlignment="Center"/>
-            <TextBox x:Name="txtUserId" Width="150" Margin="5 0"/>
+            <Label Content="User Number:" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtUserNumber" Width="150" Margin="5 0"/>
             <Button Content="Load Books" Click="LoadBooks_Click" />
         </StackPanel>
 

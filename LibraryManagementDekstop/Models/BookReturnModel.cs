@@ -1,6 +1,6 @@
 ﻿public class BookReturnModel
 {
-    public int UserID { get; set; }
+    public string UserNumber { get; set; }
     public int BookCopyID { get; set; }
     public DateTime LoanDate { get; set; }
     public DateTime ReturnDate { get; set; }
