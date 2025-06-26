@@ -91,7 +91,9 @@ namespace LibraryManagementDesktop.Services
             totalFine = 0m;
             txtTotalFine.Text = "$0.00";
 
-            if (!int.TryParse(txtUserId.Text.Trim(), out int userId))
+            string userNumber = txtUserNumber.Text.Trim();
+
+            if (string.IsNullOrEmpty(userNumber) || !userNumber.All(char.IsDigit))
             {
                 MessageBox.Show("Please enter a valid numeric User ID.");
                 return;
@@ -109,7 +111,7 @@ namespace LibraryManagementDesktop.Services
 
                 var userModel = new BookReturnModel
                 {
-                    UserID = userId
+                    UserNumber = userNumber,
                 };
 
                 var json = JsonSerializer.Serialize(userModel);
@@ -188,7 +190,8 @@ namespace LibraryManagementDesktop.Services
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Book Returned successfully!");
+                        MessageBox.Show(this,"Book Returned successfully!");
+
 
                     }
                     else

@@ -2,6 +2,6 @@
 {
     public class UpdateReserveModel
     {
-        public int BookNumber { get; set; }
+        public int BookCopyID { get; set; }
     }
 }
