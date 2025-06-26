@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IConnectionFactory, SqlConnectionFactory>();
-builder.Services.AddScoped<IBorrowerService, BorrowerService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookRegistrationRepository, BookRegistrationRepository>();
 builder.Services.AddScoped<IBookUpdateRepository, BookUpdateRepository>();
