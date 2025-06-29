@@ -48,7 +48,7 @@
             <!-- Book Table -->
             <DataGrid Grid.Row="1" Margin="30,10,30,10" x:Name="BookGrid" AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="#" Binding="{Binding BookNumber}" Width="50"/>
+                    <DataGridTextColumn Header="Book Number" Binding="{Binding BookNumber}" Width="50"/>
                     <DataGridTextColumn Header="Book Name" Binding="{Binding Title}" Width="*"/>
                     <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="*"/>
                     <DataGridTextColumn Header="Quantity" Binding="{Binding NoofCopies}" Width="80"/>
