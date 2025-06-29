@@ -13,7 +13,7 @@
             <TextBlock Text="User Number :" Width="500"/>
             <TextBox x:Name="UserNumberTextBox" Margin="0,0,0,10" Width="500"/>
 
-            <TextBlock Text="Book Copy Number:" Width="500"/>
+            <TextBlock Text="Book Number:" Width="500"/>
             <TextBox x:Name="BookIdTextBox" Margin="0,0,0,10" Width="500"/>
 
             <Button Content="Reserve Book" Width="150" HorizontalAlignment="Center" Click="ReserveBook_Click" Margin="0,10"/>

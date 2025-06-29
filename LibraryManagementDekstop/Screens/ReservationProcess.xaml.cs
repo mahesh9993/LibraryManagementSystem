@@ -64,9 +64,9 @@ namespace LibraryManagementDekstop.Screens
         private async void ReserveBook_Click(object sender, RoutedEventArgs e)
         {
             string userNumber = UserNumberTextBox.Text.Trim();
-            string bookCopyNumber = BookIdTextBox.Text.Trim();
+            string bookNumber = BookIdTextBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(userNumber) || string.IsNullOrEmpty(bookCopyNumber))
+            if (string.IsNullOrEmpty(userNumber) || string.IsNullOrEmpty(bookNumber))
             {
                 MessageBox.Show("Please enter borrower ID and select a book title.");
                 return;
@@ -88,7 +88,7 @@ namespace LibraryManagementDekstop.Screens
 
                 {
                     UserNumber = userNumber,
-                    BookCopyNumber = bookCopyNumber,
+                    BookNumber = bookNumber,
                     CreatedBy = 1,
 
                 };
@@ -101,7 +101,7 @@ namespace LibraryManagementDekstop.Screens
 
                 if (response.IsSuccessStatusCode)
                 {
-                    ReservationStatusTextBlock.Text = $"Book '{bookCopyNumber}' Reserved successfully.";
+                    ReservationStatusTextBlock.Text = $"Book '{bookNumber}' Reserved successfully.";
                     MessageBox.Show(this,"Reservation successfull!");
                     LoadReserveBooks();
                 }
