@@ -106,27 +106,27 @@ namespace DesktopApplication.Screens
             this.Close();
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"Searching: {SearchBox.Text}");
-        }
+        //private void Search_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show($"Searching: {SearchBox.Text}");
+        //}
 
-        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (SearchBox.Text == "Search books")
-            {
-                SearchBox.Text = "";
-                SearchBox.Foreground = Brushes.Black;
-            }
-        }
+        //private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (SearchBox.Text == "Search books")
+        //    {
+        //        SearchBox.Text = "";
+        //        SearchBox.Foreground = Brushes.Black;
+        //    }
+        //}
 
-        private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(SearchBox.Text))
-            {
-                SearchBox.Text = "Search books";
-                SearchBox.Foreground = Brushes.Gray;
-            }
-        }
+        //private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(SearchBox.Text))
+        //    {
+        //        SearchBox.Text = "Search books";
+        //        SearchBox.Foreground = Brushes.Gray;
+        //    }
+        //}
     }
 }

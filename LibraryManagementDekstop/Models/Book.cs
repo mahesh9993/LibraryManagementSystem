@@ -17,6 +17,8 @@ namespace LibraryManagementDekstop.Models
         public string Publisher { get; set; }
         public int NoofCopies { get; set; }
         public int CreatedBy { get; set; }
+        public string BookNumber { get; set; }
+        public string Status { get; set; }
 
     }
 }

@@ -25,41 +25,39 @@
 
         <!-- Main Content -->
         <Grid Margin="200,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Search -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,30,10">
-                <TextBox Width="200" Height="30" x:Name="SearchBox" Text="Search books" Foreground="Gray" GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus"/>
-                <Button Width="30" Height="30" Margin="5,0,0,0" Content="🔍" Click="Search_Click"/>
-            </StackPanel>
+            <!-- Centered Title -->
+            <Label 
+                Grid.Row="0" Grid.ColumnSpan="2"
+                Content="Explore Our Books"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,20,0,10"
+                FontSize="20"
+                FontWeight="Bold"/>
 
             <!-- Book Table -->
-            <DataGrid Grid.Row="1" Margin="30,10" x:Name="BookGrid" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid Grid.Row="1" Margin="30,10,30,10" x:Name="BookGrid" AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" Binding="{Binding BookNumber}" Width="50"/>
                     <DataGridTextColumn Header="Book Name" Binding="{Binding Title}" Width="*"/>
                     <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="*"/>
                     <DataGridTextColumn Header="Quantity" Binding="{Binding NoofCopies}" Width="80"/>
-                    <DataGridTemplateColumn Header="Status" Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Ellipse Width="15" Height="15">
-                                    <Ellipse.Fill>
-                                        <SolidColorBrush Color="{Binding StatusColor}"/>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80" />
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Legend -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+            <!-- Legend (optional, still commented) -->
+            <!--<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Ellipse Width="15" Height="15" Fill="LimeGreen"/>
                     <TextBlock Text=" Available" Margin="5,0"/>
@@ -68,7 +66,7 @@
                     <Ellipse Width="15" Height="15" Fill="Red"/>
                     <TextBlock Text=" Not Available" Margin="5,0"/>
                 </StackPanel>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
     </Grid>
 </Window>
