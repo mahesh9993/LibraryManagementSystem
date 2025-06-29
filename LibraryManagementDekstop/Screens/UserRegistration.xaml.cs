@@ -45,7 +45,7 @@ namespace LibraryManagementDekstop.Screens
                 gender == "Not specified" ||
                 registrationType == "Not selected")
             {
-                MessageBox.Show("Please fill all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(this, "Please fill all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -79,19 +79,19 @@ namespace LibraryManagementDekstop.Screens
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("User registered successfully!");
+                    MessageBox.Show(this, "User registered successfully!");
                     Home home = new();
                     home.Show();
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show($"Failed to register user: {response.StatusCode}");
+                    MessageBox.Show(this, $"Failed to register user: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show(this, $"Error: {ex.Message}");
             }
         }
 

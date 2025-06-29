@@ -49,7 +49,7 @@ namespace LibraryManagementAPI.Infrastructure.Services
 
                 using var connection = connectionFactory.CreateConnection();
                 var parameters = new DynamicParameters();
-                parameters.Add("BookNumber", inputModel.BookNumber, DbType.Int32);
+                parameters.Add("BookCopyID", inputModel.BookCopyID, DbType.Int32);
                 parameters.Add("Result", "0", DbType.Int32, direction: ParameterDirection.Output);
 
                 await connection.QueryAsync("[dbo].[UpdateReservationDetail]", parameters, commandType: CommandType.StoredProcedure);

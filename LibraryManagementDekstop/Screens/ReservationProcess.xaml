@@ -21,14 +21,14 @@
             <TextBlock x:Name="ReservationStatusTextBlock" FontWeight="Bold" Foreground="DarkGreen" Margin="0,20,0,0"/>
             <DataGrid x:Name="dgReservedBooks" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Book Number" Binding="{Binding BookNumber}" Width="1.2*"/>
+                    <DataGridTextColumn Header="Book Number" Binding="{Binding BookCopyNumber}" Width="1.2*"/>
                     <DataGridTextColumn Header="Book Title" Binding="{Binding Title}" Width="*"/>
                     <DataGridTextColumn Header="User Number" Binding="{Binding UserNumber}" Width="1.5*"/>
                     <DataGridTextColumn Header="Reserve Date" Binding="{Binding ReserveDate, StringFormat=d}" Width="*"/>
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="Delete_Click" Tag="{Binding BookNumber}" />
+                                <Button Content="Delete" Click="Delete_Click" Tag="{Binding BookCopyID}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

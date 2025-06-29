@@ -42,7 +42,7 @@ namespace LibraryManagementAPI.Controllers
 
         [HttpPost]
         [Route("GetLoansByUser")]
-        public async Task<IActionResult> GetLoansByUser(LoanModel model)
+        public async Task<IActionResult> GetLoansByUser(BookReturnModel model)
         {
             var result = await loanService.GetLoansByUser(model);
             return Ok(result);
@@ -50,7 +50,7 @@ namespace LibraryManagementAPI.Controllers
 
         [HttpPost]
         [Route("ReturnBookDelete")]
-        public async Task<IActionResult> ReturnBookDelete(LoanModel model)
+        public async Task<IActionResult> ReturnBookDelete([FromBody] BookReturnModel model)
         {
             var result = await loanService.ReturnBookDelete(model);
             return Ok(result);

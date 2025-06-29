@@ -102,12 +102,13 @@ namespace LibraryManagementDekstop.Screens
                 if (response.IsSuccessStatusCode)
                 {
                     ReservationStatusTextBlock.Text = $"Book '{bookNumber}' Reserved successfully.";
-                    MessageBox.Show("User registered successfully!");
+                    MessageBox.Show(this,"Reservation successfull!");
+                    LoadReserveBooks();
                 }
 
                 else
                 {
-                    MessageBox.Show($"Failed to register user: {response.StatusCode}");
+                    MessageBox.Show($"Reservation Failed: {response.StatusCode}");
                 }
 
             }
@@ -140,7 +141,7 @@ namespace LibraryManagementDekstop.Screens
              
                     var deleteModel = new UpdateReserveModel()
                     {
-                        BookNumber = bookCopyID
+                        BookCopyID = bookCopyID
                     };
 
                     var json = JsonSerializer.Serialize(deleteModel);
@@ -151,18 +152,18 @@ namespace LibraryManagementDekstop.Screens
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Reservation updated/deleted successfully!");
+                        MessageBox.Show(this, "Reservation updated/deleted successfully!");
                         LoadReserveBooks();
 
                     }
                     else
                     {
-                        MessageBox.Show($"Failed to update reservation: {response.StatusCode}");
+                        MessageBox.Show(this, $"Failed to update reservation: {response.StatusCode}");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Invalid BookCopyID.");
+                    MessageBox.Show(this, "Invalid BookCopyID.");
                 }
             }
             catch (Exception ex)

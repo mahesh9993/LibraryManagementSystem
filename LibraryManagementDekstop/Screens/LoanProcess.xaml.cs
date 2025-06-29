@@ -64,17 +64,17 @@ namespace LibraryManagementDekstop.Screens
                     }
                     else
                     {
-                        MessageBox.Show("Failed to get loan details");
+                        MessageBox.Show(this, "Failed to get loan details");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Failed to load loans");
+                    MessageBox.Show(this, "Failed to load loans");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show(this, $"Error: {ex.Message}");
             }
 
             ConfirmLoanButton.IsEnabled = false;
@@ -115,17 +115,17 @@ namespace LibraryManagementDekstop.Screens
                     }
                     else
                     {
-                        MessageBox.Show("Failed to get loan details");
+                        MessageBox.Show(this, "Failed to get loan details");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Failed to load loans");
+                    MessageBox.Show(this, "Failed to load loans");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show(this, $"Error: {ex.Message}");
             }
         }
 
@@ -138,7 +138,7 @@ namespace LibraryManagementDekstop.Screens
 
                 if (string.IsNullOrWhiteSpace(BorrowerIdTextBox.Text) || string.IsNullOrWhiteSpace(CopyIdTextBox.Text))
                 {
-                    MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(this, "Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -167,16 +167,20 @@ namespace LibraryManagementDekstop.Screens
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Loan Saved Successfully!");
+
+                        MessageBox.Show(this, "Loan Saved Successfully!");
+
+                        MessageBox.Show(this,"Loan Saved Successfully!");
+
                     }
                     else
                     {
-                        MessageBox.Show($"Failed to save loan: {response.StatusCode}");
+                        MessageBox.Show(this, $"Failed to save loan: {response.StatusCode}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    MessageBox.Show(this, $"Error: {ex.Message}");
                 }
 
                 DateTime returnDate = DateTime.Today.AddDays(14);
